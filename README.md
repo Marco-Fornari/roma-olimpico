@@ -1,4 +1,4 @@
-# Biglietteria Stadio Olimpico, prototipo per AS Roma
+# Biglietteria Stadio Olimpico - AS ROMA
 
 Prototipo interattivo di biglietteria con ordini dal posto per lo Stadio Olimpico.
 Progetto e sviluppo di Marco Fornari. Proposta non ufficiale: posti, prezzi e disponibilità sono di esempio.
