@@ -1,0 +1,19 @@
+{
+  "name": "biglietteria-olimpico",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prototipo di biglietteria e ordini dal posto per lo Stadio Olimpico (proposta per AS Roma)",
+  "author": "Marco Fornari",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.3.0",
+    "3d-tiles-renderer": "^0.5.4",
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

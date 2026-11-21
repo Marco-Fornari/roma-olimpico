@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biglietteria Stadio Olimpico AS Roma</title>
+<link rel="icon" type="image/png" sizes="64x64" href="__FAVICON__">
+<style>/*__CSS__*/</style>
+</head>
+<body data-view="loading">
+<canvas id="gl" aria-label="Stadio Olimpico in 3D"></canvas>
+<div id="scrim"></div>
+<div id="labels" aria-hidden="true"></div>
+
+<header class="bar">
+  <button class="brand" id="home" type="button" aria-label="Torna all'inizio">
+    <img src="__CREST__" alt="Stemma AS Roma" width="34" height="45">
+    <span class="standard-brand"><strong>AS Roma</strong><small>Biglietteria Olimpico</small></span>
+    <span class="ticket-brand"><strong>Biglietteria Olimpico</strong><small id="barMatch"></small></span>
+  </button>
+  <button type="button" id="introExplore">Vista 3D dello stadio</button>
+  <div class="visit-tools"><button type="button" id="visitTickets">Biglietteria <span aria-hidden="true">↗</span></button></div>
+  <ol class="steps" aria-label="Avanzamento">
+    <li data-s="1">Settore</li><li data-s="2">Posti</li><li data-s="3">Biglietti</li><li data-s="4">Ordini</li>
+  </ol>
+</header>
+
+<section id="intro" class="screen" aria-labelledby="introTitle">
+  <div class="ticket-copy">
+    <p class="competition" id="introComp"></p>
+    <h1 id="introTitle"><span class="home"><img class="team-crest" src="__CREST__" alt="Stemma AS Roma"><b></b></span><span class="away"><img class="team-crest" src="__JUVE__" alt="Stemma Juventus"><b></b></span></h1>
+    <p class="fixture" id="introWhen"></p>
+    <table class="tiers" aria-label="Prezzi e disponibilità dei settori"><tbody id="introTiers"></tbody></table>
+    <div class="ticket-actions"><button class="btn gold" id="startBtn" type="button">Scegli il posto</button><small id="introNote"></small></div>
+  </div>
+</section>
+
+<section id="visit" aria-label="Visita virtuale dello Stadio Olimpico">
+  <div class="visit-heading"><p>Roma · Foro Italico</p><h1>Stadio Olimpico</h1><span id="visitCaption">Visita virtuale</span></div>
+  <div class="visit-console"><div class="visit-chapters" id="visitChapters" aria-label="Punti di osservazione"></div>
+    <input type="range" id="visitProgress" min="0" max="1000" value="0" aria-label="Posizione lungo la visita">
+    <div class="visit-controls"><button type="button" id="visitPlay">Avvia visita</button><small>Trascina per guardarti intorno</small>
+      <details><summary>Fonti</summary><p>Ortofoto 2020 © AGEA, mosaico Regione Lazio (CC BY 4.0), riorientata. Cartografia © OpenStreetMap contributors (ODbL). Rilievo Mapzen / AWS Terrain Tiles, dati SRTM. Materiali e luce Poly Haven (CC0). Copertura da documentazione MJW Structures.</p><p>Con una chiave Google Maps Platform il contesto (terreno, Foro Italico, Monte Mario, quartiere) arriva dalle Photorealistic 3D Tiles di Google Maps; lo stadio, la copertura e gli interni restano il modello ricostruito.</p><p>Volumi e materiali sono ricostruiti. Ingresso e collegamento alla tribuna sono un percorso dimostrativo. La cartografia derivata è inclusa nei sorgenti.</p></details>
+    </div></div>
+  <small class="map-credit">© AGEA 2020 · Regione Lazio · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></small>
+</section>
+<aside id="legend" class="panel left" aria-labelledby="legendTitle">
+  <h2 id="legendTitle">Scegli il settore</h2>
+  <p class="sub">Seleziona un settore sulla pianta o nell’elenco.</p>
+  <div id="legendList"></div>
+</aside>
+<div id="tip" role="status"></div>
+
+<aside id="seatPanel" class="panel right" aria-labelledby="spTitle">
+  <div class="phead"><div><h2 id="spTitle"></h2><p class="sub" id="spSub"></p></div><button class="x" data-back type="button" aria-label="Torna alla pianta">✕</button></div>
+  <div class="blocks" id="spBlocks" role="tablist" aria-label="Blocchi del settore"></div>
+  <div class="qty"><span>Quanti biglietti?</span><div class="stepper"><button type="button" data-q="-1" aria-label="Uno in meno">−</button><output id="qtyOut">2</output><button type="button" data-q="1" aria-label="Uno in più">+</button></div></div>
+  <div class="mapwrap"><canvas id="seatmap" aria-label="Mappa dei posti del blocco"></canvas><p class="pitchside">Lato campo</p></div>
+  <ul class="key"><li><i class="k-free"></i>Libero</li><li><i class="k-occ"></i>Occupato</li><li><i class="k-sel"></i>Scelto da te</li></ul>
+  <div id="spSel"></div>
+  <div class="pfoot"><div class="tot"><span>Totale</span><strong id="spTotal">0 €</strong></div><button class="btn gold" id="viewBtn" type="button" disabled>Guarda la vista dal posto</button></div>
+</aside>
+
+<aside id="hospPanel" class="panel right" aria-labelledby="hpTitle">
+  <div class="phead"><div><h2 id="hpTitle"></h2><p class="sub" id="hpSub"></p></div><button class="x" data-back type="button" aria-label="Torna alla pianta">✕</button></div>
+  <div id="hpList" class="packs" role="radiogroup" aria-label="Pacchetti hospitality"></div>
+  <div class="qty"><span>Quante persone?</span><div class="stepper"><button type="button" data-hq="-1" aria-label="Una in meno">−</button><output id="hqOut">2</output><button type="button" data-hq="1" aria-label="Una in più">+</button></div></div>
+  <p class="fine">Prezzo e disponibilità vengono confermati dal team hospitality del club.</p>
+  <div class="pfoot col"><button class="btn ghost" id="hpView" type="button">Guarda la vista dalla Tribuna d'Onore</button><button class="btn gold" id="hpReq" type="button">Richiedi disponibilità</button></div>
+</aside>
+
+<section id="seatView" class="screen" aria-label="Vista dal posto e biglietto">
+  <div class="topline"><button class="btn ghost sm" id="changeSeat" type="button">Cambia posto</button><span class="hint">Trascina per guardarti intorno</span></div>
+  <div id="ticketSlot"></div>
+  <div class="actions" id="seatActions"></div>
+</section>
+
+<section id="done" class="screen overlay" aria-live="polite"></section>
+
+<aside id="orderPanel" class="panel right" aria-labelledby="opTitle">
+  <div class="phead"><div><h2 id="opTitle">Ordina dal tuo posto</h2><p class="sub" id="opSub"></p></div><button class="x" data-back type="button" aria-label="Chiudi">✕</button></div>
+  <div id="opMenu"></div>
+  <fieldset class="opts"><legend>Come lo ricevi?</legend><div id="opMode"></div></fieldset>
+  <fieldset class="opts"><legend>Quando?</legend><div id="opWhen"></div></fieldset>
+  <div class="pfoot"><div class="tot"><span>Totale</span><strong id="opTotal">0 €</strong></div><button class="btn gold" id="opConfirm" type="button" disabled>Conferma ordine</button></div>
+</aside>
+
+<section id="wallet" class="screen overlay" aria-live="polite"></section>
+
+<footer class="concept"><span id="conceptNote"></span><span class="credit"></span></footer>
+<div id="toast" role="alert"></div>
+<div id="loader"><img src="__CREST__" alt="" width="64" height="85"><p>Caricamento dello stadio</p></div>
+<script>/*__JS__*/</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Dipendenze (si reinstallano con `npm install`)
+node_modules/
+
+# Output di build (si rigenera con `node build.mjs`)
+sorgente/dist/
+
+# Segreti: se in futuro sposti la chiave Google fuori da config.js
+.env
+.env.*
+!.env.example
+
+# macOS / editor
+.DS_Store
+*.webloc
+.vscode/
+.idea/
+
+# Log
+npm-debug.log*
+*.log
+
+# Copia vecchia della build (la demo versionata è main.html)
+sorgente/index.html
