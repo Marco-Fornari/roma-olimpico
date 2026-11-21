@@ -1,0 +1,8 @@
+# La demo è un unico file, main.html, nella radice del repository.
+# Senza index.html la radice del sito risponde 404: questa regola serve
+# main.html su "/" senza cambiare l'indirizzo nella barra del browser.
+# Le query string (es. ?gkey=...) vengono inoltrate così come sono.
+[[redirects]]
+  from = "/"
+  to = "/main.html"
+  status = 200
