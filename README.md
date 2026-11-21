@@ -3,9 +3,30 @@
 Prototipo interattivo di biglietteria con ordini dal posto per lo Stadio Olimpico.
 Progetto e sviluppo di Marco Fornari. Proposta non ufficiale: posti, prezzi e disponibilità sono di esempio.
 
+<p align="center">
+  <img src="immagini/anteprima.gif" alt="Anteprima animata: locandina della partita, scelta del settore, scelta dei posti, vista dal posto con il biglietto, ordine dal posto, Tribuna d'Onore" width="100%">
+</p>
+
+## Anteprima
+
+| | |
+|:---:|:---:|
+| <img src="immagini/00-stadio-olimpico-3d.jpg" alt="Lo Stadio Olimpico in 3D"> | <img src="immagini/01-partita.jpg" alt="Locandina della partita"> |
+| **Lo stadio in 3D**, con la copertura a 88 campate | **La partita**: data, settori e prezzi di partenza |
+| <img src="immagini/03-settore-evidenziato.jpg" alt="Scelta del settore"> | <img src="immagini/05-posti-scelti.jpg" alt="Scelta dei posti"> |
+| **1. Settore**: prezzo e posti liberi al passaggio del mouse | **2. Posti**: blocco, numero di biglietti e posti vicini |
+| <img src="immagini/06-vista-dal-posto.jpg" alt="Vista dal posto con il biglietto"> | <img src="immagini/08-ordine-dal-posto.jpg" alt="Ordine dal posto"> |
+| **3. Biglietti**: la vista reale dal posto scelto | **4. Ordini**: cibo e bevande, ritiro express o consegna al posto |
+| <img src="immagini/10-hospitality.jpg" alt="Tribuna d'Onore"> | <img src="immagini/12-tribuna-tevere.jpg" alt="Tribuna Tevere"> |
+| **Tribuna d'Onore**: richiesta di disponibilità all'hospitality | **Tribuna Tevere**: tariffe Intero, Under 16 e Over 65 |
+
+Le altre schermate sono nella cartella [`immagini/`](immagini/).
+
 ## Aprirlo
 
-Apri `biglietteria-olimpico.html` in un browser recente con WebGL 2 e accelerazione grafica attiva. Le geometrie, le texture e i dati del paesaggio sono incorporati nel file. La visita funziona offline.
+GitHub non esegue le pagine HTML: per provare il prototipo scarica [`main.html`](main.html) (pulsante *Download raw file*) e aprilo in locale.
+
+Apri `main.html` in un browser recente con WebGL 2 e accelerazione grafica attiva. Le geometrie, le texture e i dati del paesaggio sono incorporati nel file. La visita funziona offline.
 
 All'apertura compare il panorama 3D. Trascina per ruotare intorno allo stadio, usa la rotella per lo zoom e premi **Avvia visita** per raggiungere la tribuna. I quattro pulsanti spostano la camera lungo il percorso. Il cursore consente di avanzare o tornare indietro. Lungo il percorso puoi guardarti intorno trascinando o usando i tasti freccia quando il campo ha il focus. **Biglietteria** apre il percorso di prenotazione.
 
@@ -51,7 +72,7 @@ Il paesaggio intorno allo stadio può arrivare dalle **Photorealistic 3D Tiles**
 
 ### Usarla
 
-- Per provarla senza ricompilare apri `biglietteria-olimpico.html?gkey=LA_TUA_CHIAVE`.
+- Per provarla senza ricompilare apri `main.html?gkey=LA_TUA_CHIAVE`.
 - Per includerla nel file inseriscila in `GOOGLE_3D.apiKey` dentro `src/config.js` ed esegui `node build.mjs`. La chiave resta leggibile da chiunque abbia il file: non condividere copie con la chiave dentro, oppure usa una chiave limitata per referrer.
 - Le restrizioni per referrer non funzionano aprendo il file con doppio clic (`file://`), perché in quel caso il browser non invia nessun referrer. Per la presentazione servi la cartella in locale, ad esempio con `npx serve dist` e l'indirizzo `http://localhost:3000`, oppure pubblicala sul dominio autorizzato.
 - `?osm` forza la cartografia inclusa anche quando una chiave è configurata.
